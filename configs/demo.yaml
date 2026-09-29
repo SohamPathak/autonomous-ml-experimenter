@@ -1,0 +1,30 @@
+schema_version: "1.0"
+seed: 42
+top_k: 10
+data:
+  mode: synthetic
+  events_path: null
+  sample_users: 120
+  min_user_events: 3
+  validation_fraction: 0.2
+  test_fraction: 0.2
+research:
+  max_trials_per_phase: 6
+  timeout_seconds: 300
+  plateau_patience: 3
+  minimum_improvement: 0.005
+  sampler_seed: 42
+governance:
+  primary_metric: ndcg_at_10
+  minimum_relative_improvement: 0.03
+  minimum_catalog_coverage: 0.08
+  maximum_p95_latency_ms: 50.0
+  maximum_cold_recall_degradation: 0.02
+vertex:
+  enabled: true
+  model: gemini-2.5-flash
+  location: global
+tracking:
+  enabled: true
+  database_path: artifacts/mlflow.db
+  artifact_root: artifacts/mlruns

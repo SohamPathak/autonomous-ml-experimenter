@@ -1,0 +1,5 @@
+# Minimal Streamlit Community Cloud environment
+pandas==2.2.3
+plotly==7.1.0
+pydantic==2.12.5
+streamlit==1.64.0

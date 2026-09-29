@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autonomous-ml-experimenter"
+version = "0.1.0"
+description = "Model-agnostic research loops for experimentation, governance, and monitoring."
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Soham"}]
+dependencies = [
+  "numpy==2.2.6",
+  "pandas==2.2.3",
+  "pydantic==2.12.5",
+  "PyYAML==6.0.3",
+  "scipy==1.16.3",
+  "typer==0.27.2",
+]
+
+[project.optional-dependencies]
+local = [
+  "google-genai==2.25.0",
+  "implicit==0.7.3",
+  "mlflow==3.16.1",
+  "optuna==5.0.0",
+  "pyarrow==25.0.1",
+]
+dashboard = [
+  "plotly==7.1.0",
+  "streamlit==1.64.0",
+]
+docs = [
+  "selenium==4.49.0",
+]
+dev = [
+  "build==1.6.1",
+  "mypy==2.3.1",
+  "pandas-stubs==2.2.3.250308",
+  "types-PyYAML==6.0.12.20260906",
+  "pytest==9.1.1",
+  "pytest-cov==7.1.0",
+  "ruff==0.16.9",
+]
+
+[project.scripts]
+autonomous-ml-experimenter = "autonomous_ml_experimenter.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+autonomous_ml_experimenter = ["py.typed"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+packages = ["autonomous_ml_experimenter"]
+
+[tool.coverage.run]
+source = ["autonomous_ml_experimenter"]
+branch = true

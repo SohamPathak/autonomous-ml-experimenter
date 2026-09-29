@@ -1,0 +1,1 @@
+"""Compact, versioned presentation artifacts."""

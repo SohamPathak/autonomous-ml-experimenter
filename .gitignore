@@ -1,0 +1,38 @@
+# Credentials and local configuration
+/creds/
+.env*
+!.env.example
+*.pem
+*.key
+*credentials*.json
+*creds*.json
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Data, models, and experiment state
+/data/raw/
+/data/processed/
+/artifacts/
+/mlruns/
+*.db
+*.sqlite
+*.sqlite3
+*.pkl
+*.joblib
+*.npz
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/

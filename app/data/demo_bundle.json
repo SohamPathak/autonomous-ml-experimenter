@@ -1,0 +1,793 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-09-29T18:29:30.921208Z",
+  "project": "Autonomous ML Experimenter",
+  "tagline": "Model-agnostic research loops for experimentation, comparison, governance, and monitoring.",
+  "data_manifest": {
+    "fingerprint": "a256f16abc2f88b951a5ad469f22383da8dfd31ac76b5e8d7e715d9d9ddc156a",
+    "row_count": 4494,
+    "user_count": 120,
+    "item_count": 60,
+    "start_time": "2025-01-01T00:01:00Z",
+    "end_time": "2025-01-30T02:14:00Z",
+    "source": "generated fixture",
+    "sampling": {
+      "mode": "synthetic",
+      "user_limit": 120,
+      "seed": 42
+    }
+  },
+  "trials": [
+    {
+      "trial_id": "v0-000",
+      "phase": "V0 · Baseline",
+      "model_name": "popularity",
+      "parameters": {},
+      "metrics": {
+        "recall_at_10": 0.05581425581425581,
+        "ndcg_at_10": 0.046190093764572816,
+        "mrr_at_10": 0.09895252395252394,
+        "catalog_coverage": 0.3,
+        "recommendation_concentration": 0.0693498904309715,
+        "warm_recall_at_10": 0.05581425581425581,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.02075065098320912,
+        "mean_latency_ms": 0.0014699374636014302,
+        "p95_latency_ms": 0.0017499987734481692
+      },
+      "hypothesis": {
+        "observation": "The configuration and data boundary are locked before evaluation.",
+        "hypothesis": "Establish a weighted popularity fallback and quality floor.",
+        "expected_effect": "Produce auditable evidence without feeding this result back into search.",
+        "parameter_changes": {},
+        "parent_trial_id": null
+      },
+      "outcome": "improvement",
+      "duration_seconds": 0.008228000020608306,
+      "parent_run_id": "0ce5bd60727c4d5a9dad7bd26397970a",
+      "run_id": "dbea9f940c954fa7b681df3a63ba0abd",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:27:48.815284Z"
+    },
+    {
+      "trial_id": "v1---co-visitation-000",
+      "phase": "V1 · Co-visitation",
+      "model_name": "co_visitation",
+      "parameters": {
+        "session_minutes": 30,
+        "recency_decay": 0.847557299785022,
+        "neighbor_limit": 20
+      },
+      "metrics": {
+        "recall_at_10": 0.2275158275158275,
+        "ndcg_at_10": 0.2380127016911794,
+        "mrr_at_10": 0.4628628628628629,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.019600681762843925,
+        "warm_recall_at_10": 0.2275158275158275,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.01716959484401345,
+        "mean_latency_ms": 0.02069373878331536,
+        "p95_latency_ms": 0.025791494408622384
+      },
+      "hypothesis": {
+        "observation": "The current recommendation approach, potentially based on simpler methods like popularity, may not fully capture the nuanced relationships between items or the dynamic nature of user preferences, leading to suboptimal personalization and engagement.",
+        "hypothesis": "By implementing a 'co_visitation' model, configured with a 'neighbor_limit' of 20, a 'recency_decay' of 0.847557299785022, and a 'session_minutes' window of 30, we can more effectively identify and leverage item co-occurrence patterns within user sessions.",
+        "expected_effect": "This specific 'co_visitation' configuration is anticipated to generate more relevant and personalized recommendations, leading to improved metrics such as MRR@10, NDCG@10, and recall@10, by better reflecting actual user behavior and item associations.",
+        "parameter_changes": {
+          "session_minutes": 30,
+          "recency_decay": 0.847557299785022,
+          "neighbor_limit": 20
+        },
+        "parent_trial_id": "v0-000"
+      },
+      "outcome": "pivot",
+      "duration_seconds": 0.1705605830065906,
+      "parent_run_id": "d146a8da12764b88b2be5af79b0c9f34",
+      "run_id": "4222d4ec38a3405cb9ba4a36b388f4d6",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:02.411757Z"
+    },
+    {
+      "trial_id": "v1---co-visitation-001",
+      "phase": "V1 · Co-visitation",
+      "model_name": "co_visitation",
+      "parameters": {
+        "session_minutes": 15,
+        "recency_decay": 0.6567928831176149,
+        "neighbor_limit": 20
+      },
+      "metrics": {
+        "recall_at_10": 0.22457034957034955,
+        "ndcg_at_10": 0.23515836263747972,
+        "mrr_at_10": 0.46024596024596026,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.01858453047642237,
+        "warm_recall_at_10": 0.22457034957034955,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016993604900581646,
+        "mean_latency_ms": 0.021432405274764105,
+        "p95_latency_ms": 0.02683349885046482
+      },
+      "hypothesis": {
+        "observation": "The previous 'co_visitation' model configuration, specifically with a 'recency_decay' of 0.847557299785022 and a 'session_minutes' window of 30, might be giving too much weight to older interactions or considering sessions that are too long, potentially diluting the impact of recent and focused user behavior on recommendations.",
+        "hypothesis": "By refining the 'co_visitation' model's parameters to a lower 'recency_decay' of 0.6567928831176149 and a shorter 'session_minutes' window of 15, while maintaining the 'neighbor_limit' at 20, we hypothesize that the model will more accurately capture immediate user intent and stronger, more recent item co-occurrence signals.",
+        "expected_effect": "This adjustment is anticipated to yield more timely and relevant recommendations, leading to an improvement in key personalization metrics such as MRR@10, NDCG@10, and recall@10, by focusing on more recent and concentrated user session data.",
+        "parameter_changes": {
+          "session_minutes": 15,
+          "recency_decay": 0.6567928831176149,
+          "neighbor_limit": 20
+        },
+        "parent_trial_id": "v1---co-visitation-000"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.11464320801314898,
+      "parent_run_id": "d146a8da12764b88b2be5af79b0c9f34",
+      "run_id": "7e56539fe8054ec994746232f7ca7f56",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:12.157862Z"
+    },
+    {
+      "trial_id": "v1---co-visitation-002",
+      "phase": "V1 · Co-visitation",
+      "model_name": "co_visitation",
+      "parameters": {
+        "session_minutes": 60,
+        "recency_decay": 0.8231696224386384,
+        "neighbor_limit": 100
+      },
+      "metrics": {
+        "recall_at_10": 0.22404872404872403,
+        "ndcg_at_10": 0.23825577892723143,
+        "mrr_at_10": 0.47065637065637067,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.019235451667884103,
+        "warm_recall_at_10": 0.22404872404872403,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017145251563856215,
+        "mean_latency_ms": 0.03268541416849706,
+        "p95_latency_ms": 0.042374987970106304
+      },
+      "hypothesis": {
+        "observation": "Previous 'co_visitation' model configurations, particularly those with a lower 'neighbor_limit' and shorter 'session_minutes', might be too restrictive, potentially missing valuable broader co-occurrence patterns or longer-term user interests within sessions. The optimizer proposes exploring a wider scope.",
+        "hypothesis": "By increasing the 'neighbor_limit' to 100, extending the 'session_minutes' window to 60, and setting 'recency_decay' to 0.8231696224386384, the 'co_visitation' model will capture a more extensive and potentially more stable set of item co-occurrence relationships across longer user sessions, while still giving appropriate weight to recent interactions.",
+        "expected_effect": "This broader configuration is anticipated to improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10, by providing more comprehensive and relevant recommendations that leverage a wider context of user behavior. It may also enhance catalog coverage and diversify recommendations.",
+        "parameter_changes": {
+          "session_minutes": 60,
+          "recency_decay": 0.8231696224386384,
+          "neighbor_limit": 100
+        },
+        "parent_trial_id": "v1---co-visitation-001"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.11955000000307336,
+      "parent_run_id": "d146a8da12764b88b2be5af79b0c9f34",
+      "run_id": "3475b4ec5919494aabc5d399fd73ee1f",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:18.129663Z"
+    },
+    {
+      "trial_id": "v1---co-visitation-003",
+      "phase": "V1 · Co-visitation",
+      "model_name": "co_visitation",
+      "parameters": {
+        "session_minutes": 60,
+        "recency_decay": 0.8005030947916218,
+        "neighbor_limit": 20
+      },
+      "metrics": {
+        "recall_at_10": 0.22375134875134875,
+        "ndcg_at_10": 0.23706082140012338,
+        "mrr_at_10": 0.46614114114114114,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.019302004707410114,
+        "warm_recall_at_10": 0.22375134875134875,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.01713248131852783,
+        "mean_latency_ms": 0.021166666326960466,
+        "p95_latency_ms": 0.025999994250014424
+      },
+      "hypothesis": {
+        "observation": "The previous trial with a 'neighbor_limit' of 100 and a 'recency_decay' of 0.823, while maintaining a 60-minute 'session_minutes', resulted in a plateau, suggesting that a broader neighborhood might not be the most effective approach for capturing strong co-visitation signals, or that the recency weighting was not optimal for that breadth.",
+        "hypothesis": "By reverting to a more focused 'neighbor_limit' of 20, while retaining a longer 'session_minutes' of 60 and fine-tuning 'recency_decay' to 0.8005030947916218, we hypothesize that the co-visitation model will better identify precise item relationships within a broader temporal context, balancing specificity with session length.",
+        "expected_effect": "This configuration is anticipated to improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10, by leveraging a more focused set of co-occurring items over a longer session duration, with an optimized recency weighting to capture both immediate and slightly less recent but still relevant interactions.",
+        "parameter_changes": {
+          "session_minutes": 60,
+          "recency_decay": 0.8005030947916218,
+          "neighbor_limit": 20
+        },
+        "parent_trial_id": "v1---co-visitation-002"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.14908224999089725,
+      "parent_run_id": "d146a8da12764b88b2be5af79b0c9f34",
+      "run_id": "70504b398f3642de991f4c5b40c496ba",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:29.928370Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-000",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 16,
+        "regularization": 0.060099747183803134,
+        "iterations": 6,
+        "alpha": 6.9158743407037555
+      },
+      "metrics": {
+        "recall_at_10": 0.18970236470236468,
+        "ndcg_at_10": 0.18977669826992702,
+        "mrr_at_10": 0.36240526240526244,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.01774368963558153,
+        "warm_recall_at_10": 0.18970236470236468,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016555625392834696,
+        "mean_latency_ms": 0.037789361305987916,
+        "p95_latency_ms": 0.03968749660998583
+      },
+      "hypothesis": {
+        "observation": "Previous trials explored co-visitation models, which showed some improvements but eventually plateaued. This suggests that a different modeling approach might be necessary to capture more complex user-item relationships and achieve further gains in recommendation quality.",
+        "hypothesis": "By implementing an 'implicit_als' model, configured with an 'alpha' of 6.9158743407037555, 'factors' set to 16, 'iterations' to 6, and 'regularization' at 0.060099747183803134, we hypothesize that this matrix factorization technique will uncover latent features in implicit user feedback, leading to more sophisticated and accurate recommendations than previous models.",
+        "expected_effect": "This 'implicit_als' configuration is anticipated to significantly improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10, by leveraging latent factors to better understand user preferences and item similarities. It may also enhance the diversity and personalization of recommendations.",
+        "parameter_changes": {
+          "factors": 16,
+          "regularization": 0.060099747183803134,
+          "iterations": 6,
+          "alpha": 6.9158743407037555
+        },
+        "parent_trial_id": "v1---co-visitation-003"
+      },
+      "outcome": "pivot",
+      "duration_seconds": 0.12573204201180488,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "e17929f7bee3415c9d6526f376c316a1",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:36.326066Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-001",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 16,
+        "regularization": 0.08341106432362087,
+        "iterations": 5,
+        "alpha": 37.573865818194896
+      },
+      "metrics": {
+        "recall_at_10": 0.20147192647192644,
+        "ndcg_at_10": 0.210111424472799,
+        "mrr_at_10": 0.4156763906763907,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.020019478938397856,
+        "warm_recall_at_10": 0.20147192647192644,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016707671126275775,
+        "mean_latency_ms": 0.037414387292186685,
+        "p95_latency_ms": 0.04212500061839819
+      },
+      "hypothesis": {
+        "observation": "The initial implementation of the 'implicit_als' model (trial 'v2---implicit-als-000') resulted in a performance decrease compared to the best 'co_visitation' models, indicating that its initial parameter configuration was not optimal for capturing complex user-item relationships and realizing the model's potential.",
+        "hypothesis": "By tuning the 'implicit_als' model parameters, specifically increasing 'alpha' to 37.573865818194896, maintaining 'factors' at 16, reducing 'iterations' to 5, and adjusting 'regularization' to 0.08341106432362087, we hypothesize that this configuration will better balance the influence of implicit feedback, the dimensionality of latent factors, and the prevention of overfitting, leading to improved recommendation quality.",
+        "expected_effect": "This refined 'implicit_als' configuration is anticipated to improve recommendation quality, resulting in higher MRR@10, NDCG@10, and recall@10, by more effectively leveraging latent factors to understand user preferences and item similarities, thereby surpassing the performance of the previous 'implicit_als' trial and potentially exceeding the best 'co_visitation' results.",
+        "parameter_changes": {
+          "factors": 16,
+          "regularization": 0.08341106432362087,
+          "iterations": 5,
+          "alpha": 37.573865818194896
+        },
+        "parent_trial_id": "v2---implicit-als-000"
+      },
+      "outcome": "improvement",
+      "duration_seconds": 0.09840641700429842,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "9629d76350b742bcbce59ccecedc5a27",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:49.201136Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-002",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 8,
+        "regularization": 0.017322667470546258,
+        "iterations": 8,
+        "alpha": 14.889231531116735
+      },
+      "metrics": {
+        "recall_at_10": 0.2146851396851397,
+        "ndcg_at_10": 0.2215341359096146,
+        "mrr_at_10": 0.430012155012155,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.019050401753104455,
+        "warm_recall_at_10": 0.2146851396851397,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016591741242904034,
+        "mean_latency_ms": 0.04033326052825663,
+        "p95_latency_ms": 0.050541493692435324
+      },
+      "hypothesis": {
+        "observation": "The previous 'implicit_als' trial ('v2---implicit-als-001') showed an improvement over its predecessor but still did not surpass the best performance achieved by 'co_visitation' models. This indicates that while the 'implicit_als' approach has potential, its current parameterization may not be fully optimized to capture the complex latent factors influencing user preferences and item similarities.",
+        "hypothesis": "By adjusting the 'implicit_als' model parameters to an 'alpha' of 14.889231531116735, 'factors' of 8, 'iterations' of 8, and 'regularization' of 0.017322667470546258, we hypothesize that this specific configuration will better balance the influence of implicit feedback, the dimensionality of latent factors, the training convergence, and the prevention of overfitting. This refined balance is expected to lead to a more accurate and robust model capable of uncovering deeper user-item relationships.",
+        "expected_effect": "This refined 'implicit_als' configuration is anticipated to significantly improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10. By more effectively leveraging latent factors, it is expected to surpass the performance of previous 'implicit_als' trials and potentially exceed the best results obtained by 'co_visitation' models, delivering more personalized and relevant recommendations.",
+        "parameter_changes": {
+          "factors": 8,
+          "regularization": 0.017322667470546258,
+          "iterations": 8,
+          "alpha": 14.889231531116735
+        },
+        "parent_trial_id": "v2---implicit-als-001"
+      },
+      "outcome": "improvement",
+      "duration_seconds": 0.10385145799955353,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "9db54c62e6d04e7abf9d7a97880e5d65",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:28:56.248164Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-003",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 32,
+        "regularization": 0.01518747922672247,
+        "iterations": 8,
+        "alpha": 10.710943209174388
+      },
+      "metrics": {
+        "recall_at_10": 0.16519539019539017,
+        "ndcg_at_10": 0.1811027506495926,
+        "mrr_at_10": 0.39779779779779784,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.017177177177177178,
+        "warm_recall_at_10": 0.16519539019539017,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.01668691947761715,
+        "mean_latency_ms": 0.037088487056075585,
+        "p95_latency_ms": 0.04006199014838785
+      },
+      "hypothesis": {
+        "observation": "Previous 'implicit_als' trials have shown improvement but indicate that further parameter tuning is necessary to fully optimize the model's performance and potentially surpass the best results achieved by other model types. The current configuration might not be optimally balancing the influence of implicit feedback, the dimensionality of latent factors, and the prevention of overfitting.",
+        "hypothesis": "By implementing an 'implicit_als' model with an 'alpha' of 10.710943209174388, 'factors' set to 32, 'iterations' to 8, and 'regularization' at 0.01518747922672247, we hypothesize that this specific configuration will achieve a better balance in leveraging implicit feedback, capturing a richer set of latent features, ensuring sufficient training convergence, and mitigating overfitting. This refined balance is expected to lead to a more accurate and robust model capable of uncovering deeper user-item relationships.",
+        "expected_effect": "This refined 'implicit_als' configuration is anticipated to significantly improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10. By more effectively leveraging latent factors, it is expected to surpass the performance of previous 'implicit_als' trials and potentially exceed the best results obtained by 'co_visitation' models, delivering more personalized and relevant recommendations.",
+        "parameter_changes": {
+          "factors": 32,
+          "regularization": 0.01518747922672247,
+          "iterations": 8,
+          "alpha": 10.710943209174388
+        },
+        "parent_trial_id": "v2---implicit-als-002"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.09764058300061151,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "0282944c35b847a38ed4e90195fcbe20",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:29:01.488224Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-004",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 16,
+        "regularization": 0.04666963767236924,
+        "iterations": 11,
+        "alpha": 5.5070485719095545
+      },
+      "metrics": {
+        "recall_at_10": 0.17945607945607944,
+        "ndcg_at_10": 0.18715205177178,
+        "mrr_at_10": 0.3935757185757186,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.017555393231068906,
+        "warm_recall_at_10": 0.17945607945607944,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016501750920355572,
+        "mean_latency_ms": 0.038432828119226,
+        "p95_latency_ms": 0.044166503357701004
+      },
+      "hypothesis": {
+        "observation": "Previous 'implicit_als' trials have shown varying performance, with some improvements but none consistently surpassing the best 'co_visitation' models. The most recent 'implicit_als' trial ('v2---implicit-als-003') resulted in a plateau, indicating that the current parameter space for 'implicit_als' might not be fully optimized to capture complex user-item relationships and achieve superior recommendation quality.",
+        "hypothesis": "By implementing an 'implicit_als' model with an 'alpha' of 5.5070485719095545, 'factors' set to 16, 'iterations' to 11, and 'regularization' at 0.04666963767236924, we hypothesize that this specific configuration will achieve a better balance in leveraging implicit feedback, capturing a richer set of latent features, ensuring sufficient training convergence, and mitigating overfitting. This refined balance is expected to lead to a more accurate and robust model capable of uncovering deeper user-item relationships.",
+        "expected_effect": "This refined 'implicit_als' configuration is anticipated to significantly improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10. By more effectively leveraging latent factors, it is expected to surpass the performance of previous 'implicit_als' trials and potentially exceed the best results obtained by 'co_visitation' models, delivering more personalized and relevant recommendations.",
+        "parameter_changes": {
+          "factors": 16,
+          "regularization": 0.04666963767236924,
+          "iterations": 11,
+          "alpha": 5.5070485719095545
+        },
+        "parent_trial_id": "v2---implicit-als-003"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.09636995798791759,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "b223ca1f0b214c02b4aeb5e1198c1c27",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:29:09.266212Z"
+    },
+    {
+      "trial_id": "v2---implicit-als-005",
+      "phase": "V2 · Implicit ALS",
+      "model_name": "implicit_als",
+      "parameters": {
+        "factors": 8,
+        "regularization": 0.17160445029754812,
+        "iterations": 15,
+        "alpha": 26.855024624270175
+      },
+      "metrics": {
+        "recall_at_10": 0.2157400907400907,
+        "ndcg_at_10": 0.21642772177838637,
+        "mrr_at_10": 0.39350064350064357,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.01965587208830452,
+        "warm_recall_at_10": 0.2157400907400907,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.016498757894106732,
+        "mean_latency_ms": 0.037209810437382876,
+        "p95_latency_ms": 0.04102048114873469
+      },
+      "hypothesis": {
+        "observation": "Previous 'implicit_als' trials have shown varying performance, with some improvements but also plateaus, and have not consistently surpassed the best 'co_visitation' models. This indicates that the parameter space for 'implicit_als' might not be fully optimized to capture complex user-item relationships and achieve superior recommendation quality. This new proposal from the optimizer suggests a different combination of parameters to explore this space.",
+        "hypothesis": "By implementing an 'implicit_als' model with an 'alpha' of 26.855024624270175, 'factors' set to 8, 'iterations' to 15, and 'regularization' at 0.17160445029754812, we hypothesize that this specific configuration will achieve a better balance in leveraging implicit feedback, capturing a more concise set of latent features, ensuring sufficient training convergence, and mitigating overfitting. This refined balance is expected to lead to a more accurate and robust model capable of uncovering deeper user-item relationships.",
+        "expected_effect": "This refined 'implicit_als' configuration is anticipated to significantly improve recommendation quality, leading to higher MRR@10, NDCG@10, and recall@10. By more effectively leveraging latent factors with this optimized balance of parameters, it is expected to surpass the performance of previous 'implicit_als' trials and potentially exceed the best results obtained by 'co_visitation' models, delivering more personalized and relevant recommendations.",
+        "parameter_changes": {
+          "factors": 8,
+          "regularization": 0.17160445029754812,
+          "iterations": 15,
+          "alpha": 26.855024624270175
+        },
+        "parent_trial_id": "v2---implicit-als-004"
+      },
+      "outcome": "plateau",
+      "duration_seconds": 0.10326725000049919,
+      "parent_run_id": "f6c04139c42146f89a4113151da02d39",
+      "run_id": "8d7652c2ae4e454dab69fa4c67b10718",
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "validation",
+      "created_at": "2026-09-29T18:29:15.193915Z"
+    },
+    {
+      "trial_id": "final-popularity",
+      "phase": "Final · Untouched test",
+      "model_name": "popularity",
+      "parameters": {},
+      "metrics": {
+        "recall_at_10": 0.04978741496598639,
+        "ndcg_at_10": 0.042795790179130516,
+        "mrr_at_10": 0.08767951625094483,
+        "catalog_coverage": 0.35,
+        "recommendation_concentration": 0.06490079365079365,
+        "warm_recall_at_10": 0.04978741496598639,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.020426595701786218,
+        "mean_latency_ms": 0.0016359394759915414,
+        "p95_latency_ms": 0.0018277030903846023
+      },
+      "hypothesis": {
+        "observation": "The configuration and data boundary are locked before evaluation.",
+        "hypothesis": "Lock the baseline and evaluate it once on the untouched final test slice.",
+        "expected_effect": "Produce auditable evidence without feeding this result back into search.",
+        "parameter_changes": {},
+        "parent_trial_id": null
+      },
+      "outcome": "improvement",
+      "duration_seconds": 0.0060464999987743795,
+      "parent_run_id": null,
+      "run_id": null,
+      "model_version": null,
+      "error": null,
+      "evaluation_split": "test",
+      "created_at": "2026-09-29T18:29:15.211257Z"
+    },
+    {
+      "trial_id": "final-co_visitation",
+      "phase": "Final · Untouched test",
+      "model_name": "co_visitation",
+      "parameters": {
+        "session_minutes": 60,
+        "recency_decay": 0.8231696224386384,
+        "neighbor_limit": 100
+      },
+      "metrics": {
+        "recall_at_10": 0.1522392290249433,
+        "ndcg_at_10": 0.15587384282134398,
+        "mrr_at_10": 0.28445767195767196,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.020308956916099772,
+        "warm_recall_at_10": 0.1522392290249433,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017354542155558244,
+        "mean_latency_ms": 0.04058339289345202,
+        "p95_latency_ms": 0.048125012835953385
+      },
+      "hypothesis": {
+        "observation": "The configuration and data boundary are locked before evaluation.",
+        "hypothesis": "Lock the selected configuration and evaluate it once on the untouched final test slice.",
+        "expected_effect": "Produce auditable evidence without feeding this result back into search.",
+        "parameter_changes": {
+          "session_minutes": 60,
+          "recency_decay": 0.8231696224386384,
+          "neighbor_limit": 100
+        },
+        "parent_trial_id": "v1---co-visitation-002"
+      },
+      "outcome": "improvement",
+      "duration_seconds": 0.032629083027131855,
+      "parent_run_id": "c866de37a88c4cf68079996267a00adb",
+      "run_id": "b1027cade60648ba8e5eaf39306c719d",
+      "model_version": "2",
+      "error": null,
+      "evaluation_split": "test",
+      "created_at": "2026-09-29T18:29:15.243916Z"
+    }
+  ],
+  "decision": {
+    "status": "promote",
+    "champion_model": "popularity",
+    "challenger_model": "co_visitation",
+    "reasons": [
+      "ndcg_at_10 was measured for champion and challenger.",
+      "Primary metric cleared the configured lift threshold.",
+      "All quality and operational guardrails passed."
+    ],
+    "guardrails": {
+      "primary_metric": true,
+      "catalog_coverage": true,
+      "p95_latency": true,
+      "cold_start": true
+    },
+    "requires_human_approval": true,
+    "approved": false
+  },
+  "monitoring": [
+    {
+      "window_id": "observed-1",
+      "start_time": "2025-01-27T01:44:00Z",
+      "end_time": "2025-01-28T01:08:00Z",
+      "metrics": {
+        "recall_at_10": 0.23137254901960785,
+        "ndcg_at_10": 0.2195277439874798,
+        "mrr_at_10": 0.37450980392156863,
+        "catalog_coverage": 0.9666666666666667,
+        "recommendation_concentration": 0.021055363321799307,
+        "warm_recall_at_10": 0.23137254901960785,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017049359964138065,
+        "mean_latency_ms": 0.08472544226713259,
+        "p95_latency_ms": 0.09952103864634408,
+        "event_type_js": 0.00637041666872087,
+        "item_popularity_js": 0.1612200699447508,
+        "user_activity_relative_shift": 0.8874112751896875,
+        "event_volume": 115.0,
+        "missing_required_rate": 0.0,
+        "window_duration_hours": 23.4
+      },
+      "status": "warning",
+      "alerts": [
+        "Item-popularity distribution is drifting."
+      ],
+      "simulated_incident": false
+    },
+    {
+      "window_id": "observed-2",
+      "start_time": "2025-01-28T01:09:00Z",
+      "end_time": "2025-01-29T00:42:00Z",
+      "metrics": {
+        "recall_at_10": 0.12156862745098038,
+        "ndcg_at_10": 0.1474122878244385,
+        "mrr_at_10": 0.30392156862745096,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.020761245674740483,
+        "warm_recall_at_10": 0.12156862745098038,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017157443841211335,
+        "mean_latency_ms": 0.06805388308267164,
+        "p95_latency_ms": 0.07950164872454478,
+        "event_type_js": 0.0043709633259368785,
+        "item_popularity_js": 0.14315775597344704,
+        "user_activity_relative_shift": 0.8932854695276169,
+        "event_volume": 109.0,
+        "missing_required_rate": 0.0,
+        "window_duration_hours": 23.55
+      },
+      "status": "healthy",
+      "alerts": [],
+      "simulated_incident": false
+    },
+    {
+      "window_id": "observed-3",
+      "start_time": "2025-01-29T00:43:00Z",
+      "end_time": "2025-01-30T00:09:00Z",
+      "metrics": {
+        "recall_at_10": 0.18095238095238095,
+        "ndcg_at_10": 0.18189568201946643,
+        "mrr_at_10": 0.28809523809523807,
+        "catalog_coverage": 0.9833333333333333,
+        "recommendation_concentration": 0.020702040816326532,
+        "warm_recall_at_10": 0.18095238095238095,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017166565864279663,
+        "mean_latency_ms": 0.06072257113243852,
+        "p95_latency_ms": 0.0710289110429585,
+        "event_type_js": 0.003509117040364419,
+        "item_popularity_js": 0.10143166101359269,
+        "user_activity_relative_shift": 0.9010897562908659,
+        "event_volume": 104.0,
+        "missing_required_rate": 0.0,
+        "window_duration_hours": 23.433333333333334
+      },
+      "status": "healthy",
+      "alerts": [],
+      "simulated_incident": false
+    },
+    {
+      "window_id": "observed-4",
+      "start_time": "2025-01-30T00:10:00Z",
+      "end_time": "2025-01-30T02:14:00Z",
+      "metrics": {
+        "recall_at_10": 0.2176470588235294,
+        "ndcg_at_10": 0.17659945807997549,
+        "mrr_at_10": 0.2737745098039216,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.020916955017301037,
+        "warm_recall_at_10": 0.2176470588235294,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017434875728445483,
+        "mean_latency_ms": 0.058302675503963494,
+        "p95_latency_ms": 0.07382665353361517,
+        "event_type_js": 0.00010457121080649175,
+        "item_popularity_js": 0.16530707454635998,
+        "user_activity_relative_shift": 0.8972015990862364,
+        "event_volume": 105.0,
+        "missing_required_rate": 0.0,
+        "window_duration_hours": 2.066666666666667
+      },
+      "status": "warning",
+      "alerts": [
+        "Item-popularity distribution is drifting."
+      ],
+      "simulated_incident": false
+    },
+    {
+      "window_id": "simulated-latency-incident",
+      "start_time": "2025-01-30T02:14:01Z",
+      "end_time": "2025-01-30T03:14:01Z",
+      "metrics": {
+        "recall_at_10": 0.2176470588235294,
+        "ndcg_at_10": 0.17659945807997549,
+        "mrr_at_10": 0.2737745098039216,
+        "catalog_coverage": 1.0,
+        "recommendation_concentration": 0.020916955017301037,
+        "warm_recall_at_10": 0.2176470588235294,
+        "cold_recall_at_10": 0.0,
+        "unknown_user_rate": 0.0,
+        "unknown_item_rate": 0.0,
+        "fallback_rate": 0.0,
+        "average_recommended_popularity": 0.017434875728445483,
+        "mean_latency_ms": 0.058302675503963494,
+        "p95_latency_ms": 125.0,
+        "event_type_js": 0.00010457121080649175,
+        "item_popularity_js": 0.16530707454635998,
+        "user_activity_relative_shift": 0.8972015990862364,
+        "event_volume": 105.0,
+        "missing_required_rate": 0.0,
+        "window_duration_hours": 2.066666666666667
+      },
+      "status": "critical",
+      "alerts": [
+        "SIMULATED INCIDENT — p95 latency exceeded the serving guardrail."
+      ],
+      "simulated_incident": true
+    }
+  ],
+  "narrative": {
+    "headline": "Co-visitation Model Recommended for Promotion Pending Human Approval",
+    "conclusion": "The co_visitation model is recommended for promotion, pending human approval. The primary metric, ndcg_at_10, cleared the configured lift threshold, and all quality and operational guardrails passed.",
+    "tradeoffs": [
+      "The co_visitation model achieved an ndcg_at_10 of 0.15587384282134398, compared to the popularity model's 0.042795790179130516.",
+      "The co_visitation model had a p95_latency_ms of 0.048125012835953385, while the popularity model had 0.0018277030903846023.",
+      "The co_visitation model showed a catalog_coverage of 1.0, compared to the popularity model's 0.35.",
+      "The co_visitation model had a recommendation_concentration of 0.020308956916099772, compared to the popularity model's 0.06490079365079365.",
+      "The co_visitation model achieved an mrr_at_10 of 0.28445767195767196, compared to the popularity model's 0.08767951625094483.",
+      "The co_visitation model had a recall_at_10 of 0.1522392290249433, compared to the popularity model's 0.04978741496598639."
+    ],
+    "limitations": [
+      "The co_visitation model's p95_latency_ms of 0.048125012835953385 is higher than the popularity model's 0.0018277030903846023.",
+      "The co_visitation model's mean_latency_ms of 0.04058339289345202 is higher than the popularity model's 0.0016359394759915414."
+    ],
+    "next_experiment": "Further experimentation could focus on optimizing the co_visitation model's parameters, such as neighbor_limit, recency_decay, and session_minutes, to reduce latency while maintaining recommendation quality.",
+    "provider": "vertex-ai"
+  },
+  "source_run_ids": [
+    "dbea9f940c954fa7b681df3a63ba0abd",
+    "4222d4ec38a3405cb9ba4a36b388f4d6",
+    "7e56539fe8054ec994746232f7ca7f56",
+    "3475b4ec5919494aabc5d399fd73ee1f",
+    "70504b398f3642de991f4c5b40c496ba",
+    "e17929f7bee3415c9d6526f376c316a1",
+    "9629d76350b742bcbce59ccecedc5a27",
+    "9db54c62e6d04e7abf9d7a97880e5d65",
+    "0282944c35b847a38ed4e90195fcbe20",
+    "b223ca1f0b214c02b4aeb5e1198c1c27",
+    "8d7652c2ae4e454dab69fa4c67b10718",
+    "b1027cade60648ba8e5eaf39306c719d"
+  ]
+}
