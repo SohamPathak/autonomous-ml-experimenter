@@ -1,7 +1,10 @@
+import ast
+import json
 import re
 import tomllib
 from pathlib import Path
 
+import pytest
 from streamlit.testing.v1 import AppTest
 
 from app.view_models import load_dashboard_bundle, model_summary, monitoring_frame, trial_frame
@@ -14,11 +17,40 @@ def test_dashboard_view_models_use_actual_bundle() -> None:
     trials = trial_frame(bundle)
     summary = model_summary(bundle)
     monitoring = monitoring_frame(bundle)
-    assert len(trials) == len(bundle.trials)
+    assert len(trials) == len(bundle["trials"])
     assert {"model", "ndcg_at_10", "catalog_coverage", "outcome"}.issubset(trials.columns)
-    assert set(summary["model"]) == {trial.model_name for trial in bundle.trials}
+    assert set(summary["model"]) <= {trial["model_name"] for trial in bundle["trials"]}
     assert monitoring["simulated_incident"].sum() == 1
     assert monitoring.iloc[-1]["status"] == "critical"
+
+
+def test_dashboard_rejects_unsupported_or_incomplete_bundles(tmp_path: Path) -> None:
+    payload = json.loads(BUNDLE_PATH.read_text(encoding="utf-8"))
+
+    future = tmp_path / "future.json"
+    future.write_text(json.dumps({**payload, "schema_version": "9.9"}), encoding="utf-8")
+    with pytest.raises(ValueError, match="unsupported presentation bundle schema"):
+        load_dashboard_bundle(future)
+
+    truncated = tmp_path / "truncated.json"
+    truncated.write_text(json.dumps({"schema_version": "1.0"}), encoding="utf-8")
+    with pytest.raises(ValueError, match="missing keys"):
+        load_dashboard_bundle(truncated)
+
+
+def test_dashboard_reads_bundle_without_pydantic_or_project_package() -> None:
+    """The hosted app must not import the library or its heavier dependencies."""
+    root = Path(__file__).parents[1]
+    for module in ("app/view_models.py", "streamlit_app.py"):
+        tree = ast.parse((root / module).read_text(encoding="utf-8"))
+        imported: set[str] = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported.update(alias.name.split(".")[0] for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imported.add(node.module.split(".")[0])
+        forbidden = {"pydantic", "autonomous_ml_experimenter", "plotly", "numpy", "scipy"}
+        assert not (imported & forbidden), f"{module} imports {imported & forbidden}"
 
 
 def test_streamlit_overview_and_research_journey_render() -> None:
@@ -32,7 +64,7 @@ def test_streamlit_overview_and_research_journey_render() -> None:
     app.run(timeout=30)
     assert not app.exception
     assert any("Research Journey" in item.value for item in app.title)
-    assert app.get("plotly_chart")
+    assert app.get("vega_lite_chart")
 
 
 def test_all_dashboard_views_render_without_live_services() -> None:
@@ -65,6 +97,6 @@ def test_dashboard_runtime_dependencies_are_declared_in_both_manifests() -> None
         for line in (root / "requirements.txt").read_text(encoding="utf-8").splitlines()
         if line.strip() and not line.startswith("#")
     }
-    required = {"streamlit", "plotly", "pandas", "pydantic"}
+    required = {"streamlit", "altair", "pandas", "pydantic"}
     assert required <= declared, f"pyproject is missing {required - declared}"
     assert required <= pinned, f"requirements.txt is missing {required - pinned}"

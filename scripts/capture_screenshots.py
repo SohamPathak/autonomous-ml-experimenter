@@ -36,7 +36,7 @@ def capture(page: str) -> None:
     options.page_load_strategy = "eager"
     driver = webdriver.Chrome(options=options)
     driver.set_page_load_timeout(60)
-    wait = WebDriverWait(driver, 40)
+    wait = WebDriverWait(driver, 90)
     try:
         driver.get(f"http://localhost:8501/?page={quote(page)}")
         wait.until(
@@ -64,11 +64,20 @@ def capture(page: str) -> None:
                 )
             )
         else:
-            wait.until(conditions.presence_of_element_located((By.CSS_SELECTOR, ".js-plotly-plot")))
+            wait.until(
+                conditions.presence_of_element_located(
+                    (
+                        By.CSS_SELECTOR,
+                        "[data-testid='stVegaLiteChart'] canvas,"
+                        "[data-testid='stVegaLiteChart'] svg,"
+                        ".vega-embed canvas,.vega-embed svg",
+                    )
+                )
+            )
         wait.until(
             lambda browser: not browser.find_elements(By.CSS_SELECTOR, "[data-testid='stSkeleton']")
         )
-        time.sleep(1)
+        time.sleep(3)
         target = OUTPUT / filename
         if not driver.save_screenshot(str(target)):
             raise RuntimeError(f"failed to capture {filename}")

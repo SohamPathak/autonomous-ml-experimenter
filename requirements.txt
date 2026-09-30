@@ -1,6 +1,8 @@
-# Minimal Streamlit Community Cloud environment.
-# Kept in sync with the dashboard runtime dependencies in pyproject.toml.
-pandas==2.2.3
-plotly==7.1.0
-pydantic==2.12.5
-streamlit==1.64.0
+# Streamlit Community Cloud runtime for the read-only dashboard.
+# Ranges (not exact pins) so resolution cannot fail on the host Python version.
+# Charts use Altair, which ships with Streamlit, so the app starts even if a
+# dependency install is skipped and only the base environment is available.
+altair>=5.4,<7
+pandas>=2.2,<3
+pydantic>=2.9,<3
+streamlit>=1.40,<2

@@ -15,13 +15,13 @@ authors = [{name = "Soham"}]
 # first-class dependencies. Hosted platforms may resolve either this file or
 # requirements.txt; both must be sufficient to start the dashboard.
 dependencies = [
+  "altair>=5.4,<7",
   "numpy==2.2.6",
   "pandas==2.2.3",
-  "plotly==7.1.0",
   "pydantic==2.12.5",
   "PyYAML==6.0.3",
   "scipy==1.16.3",
-  "streamlit==1.64.0",
+  "streamlit>=1.40,<2",
   "typer==0.27.2",
 ]
 
