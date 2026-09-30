@@ -1,4 +1,5 @@
-# Minimal Streamlit Community Cloud environment
+# Minimal Streamlit Community Cloud environment.
+# Kept in sync with the dashboard runtime dependencies in pyproject.toml.
 pandas==2.2.3
 plotly==7.1.0
 pydantic==2.12.5

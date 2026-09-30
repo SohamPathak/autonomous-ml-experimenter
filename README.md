@@ -6,7 +6,7 @@
 
 A bounded experimentation platform that learns from trial history, tracks hypotheses and lineage, recommends a governed champion, and exports a lightweight decision dashboard. The core is model-agnostic; recommendation models provide the demo.
 
-> **Live app:** deployment-ready for Streamlit Community Cloud. The screenshots below remain the durable fallback while the GitHub/Streamlit URLs are connected.
+> **Live app:** **[autonomous-ml-experimenter.streamlit.app](https://autonomous-ml-experimenter.streamlit.app/)** — hosted on Streamlit Community Cloud, which sleeps after 12 hours of inactivity. Click to wake it, or read the screenshots below, which are the durable fallback.
 
 ![Executive overview](docs/images/01-overview.png)
 
@@ -56,7 +56,7 @@ The selected configuration is registered as candidate model version `2`. Search 
 ```bash
 conda create -n autonomous-ml-experimenter python=3.12 -y
 conda activate autonomous-ml-experimenter
-pip install -e '.[local,dashboard,dev]'
+pip install -e '.[local,dev]'
 
 # No cloud credentials required
 autonomous-ml-experimenter run --offline
